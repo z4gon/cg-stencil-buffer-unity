@@ -14,8 +14,8 @@ Shader "Unlit/XRayWindow_Unlit"
 
         Stencil {
             Ref     1
-            Comp    always
-            Pass    replace
+            Comp    Always
+            Pass    Replace
         }
 
         Pass

@@ -8,6 +8,8 @@ X-Ray shader using the stencil buffer in **Unity 2021.3.10f1** Built-in RP writt
 
 ## Screenshots
 
+![Picture](./docs/2.gif)
+
 ## Implementation Explained
 
 ### X-Ray Window
@@ -26,9 +28,40 @@ ZWrite Off
 
 Stencil {
    Ref     1
-   Comp    always
-   Pass    replace
+   Comp    Always
+   Pass    Replace
 }
 ```
 
 ![Picture](./docs/1.png)
+
+### See Through Cube
+
+1. Make a `Cull Back` `Pass` that checks the stencil buffer value, if it's `NotEqual` to 1, then render.
+1. Make another `Cull Back` `Pass` for the inner parts of the quad, which will always be rendered.
+
+```c
+Pass
+{
+   Stencil
+   {
+      Ref   1
+      Comp  NotEqual
+   }
+
+   Cull Back
+
+   CGPROGRAM
+   ENDCG
+}
+
+Pass
+{
+   Cull Front
+
+   CGPROGRAM
+   ENDCG
+}
+```
+
+![Picture](./docs/2.gif)
