@@ -1,4 +1,4 @@
-Shader "Unlit/MyShader_Unlit"
+Shader "Unlit/XRayWindow_Unlit"
 {
     Properties
     {
@@ -6,8 +6,17 @@ Shader "Unlit/MyShader_Unlit"
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags { "Queue"="Geometry-1" }
         LOD 100
+
+        ColorMask 0
+        ZWrite Off
+
+        Stencil {
+            Ref     1
+            Comp    always
+            Pass    replace
+        }
 
         Pass
         {
